@@ -1,0 +1,24 @@
+{
+  "name": "brewery-app",
+  "version": "1.0.0",
+  "description": "Container temperature Monitoring App",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run start-server",
+    "compile": "node_modules/typescript/bin/tsc",
+    "start-server": "node_modules/static-server/bin/static-server.js -p 9000 -o",
+    "test": "./node_modules/karma/bin/karma start karma.conf.js"
+  },
+  "author": "Sanjeev Subedi",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "jasmine-core": "^3.4.0",
+    "karma": "^4.1.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-jasmine": "^2.0.1",
+    "karma-verbose-reporter": "0.0.6",
+    "static-server": "^2.2.1",
+    "typescript": "^3.4.5"
+  }
+}

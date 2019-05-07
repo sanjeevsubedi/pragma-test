@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  font-size: 20px;
+}
+
+.header {
+  min-height: 70px;
+  background: #ccc;
+  padding: 20px;
+}
+
+.footer {
+  text-align: center;
+}
+
+.container {
+  padding: 20px;
+  min-height: 400px;
+}
