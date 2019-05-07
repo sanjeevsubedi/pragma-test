@@ -5,8 +5,8 @@
 
 # Test the project
 
-- Run `npm run test` in the root folder to run the app.
-- Run `npm run test` in the server folder to run the mock server.
+- Run `npm run test` in the root folder of the project to test the app.
+- Run `npm run test` in the server folder to test the mock server.
 
 # What are the highlights of your logic/code writing style?
 
@@ -15,7 +15,7 @@
 - Mock server mimics the connection with the sensors' (IoT devices) API. It only returns the
   static temperature data of beer containers for the time-being.
 - Frontend App uses Web Components API to create a component.
-- Environment Config are isolated and will not be checked in the source repository (Twelve-Factor App principle).
+- Environment Config are isolated and will not be checked in the source repository (Twelve-Factor App principle) in the future. For the purpose of test, I have checked into the repo. Look for env.js and config.json.
 - Use of Shadow-DOM to isolate the component from the rest of the app.
 - Jasmine/Karma is used for unit testing in the frontend.
 - Tape is used for unit testing in the node js server.
@@ -37,4 +37,4 @@
 - Due to the time constraint, this app is just a basic version. We can refactor and optimize a lot of things.
 - App only covers minimal unit testing. In the future, we can extend with E2E testing and make it part of CI/CD process too. We can go up to 80% of unit testing coverage.
 - I have added the tsconfig and npm scripts to compile the ts files for the future.
-- I have just put the basic UI with few lines of css. This can be optimzed by using sass making it modular.
+- I have just put the basic UI with few lines of css. This can be optimzed by using SASS, which helps to achieve modularity in styles.
