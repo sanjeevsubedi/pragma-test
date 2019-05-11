@@ -15,8 +15,10 @@ class ContainerMonitorComponent extends HTMLElement {
       }
     };
     websocket.onerror = evt => {
-      this.shadowRoot.querySelector("#content").innerHTML =
-        "<div class='error'>Connection error: Please start your socket server</div>";
+      if (this.shadowRoot) {
+        this.shadowRoot.querySelector("#content").innerHTML =
+          "<div class='error'>Connection error: Please start your socket server</div>";
+      }
     };
   }
 

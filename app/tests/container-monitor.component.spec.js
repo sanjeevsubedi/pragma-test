@@ -38,7 +38,7 @@ describe("Container Monitor Component", function() {
       expect(window.WebSocket).toHaveBeenCalledWith("ws://127.0.0.1:1337");
     });
 
-    it("should render view  on onmessage callback", () => {
+    it("should render view on onmessage callback", () => {
       spyOn(containerMonitorComponent, "render");
       containerMonitorComponent.initSensorWebSocket();
       socket.onmessage({ data: "{}" });
