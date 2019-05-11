@@ -17,7 +17,7 @@ describe("Container Monitor Component", function() {
     shadowDOM.append(createElem("div", { id: "content" }));
 
     spyOn(window, "WebSocket").and.returnValue(() => {
-      return { onmessage: null };
+      return { onmessage: () => {} };
     });
   });
 
@@ -27,10 +27,23 @@ describe("Container Monitor Component", function() {
     ).toBeTruthy();
   });
 
-  it("initSensorWebSocket() should initialize web socket", () => {
-    const address = "ws://127.0.0.1:1337";
-    containerMonitorComponent.initSensorWebSocket();
-    expect(window.WebSocket).toHaveBeenCalledWith(address);
+  describe("initSensorWebSocket()", () => {
+    let socket;
+    beforeEach(() => {
+      socket = new window.WebSocket("fake addr");
+    });
+
+    it("should initialize web socket", () => {
+      containerMonitorComponent.initSensorWebSocket();
+      expect(window.WebSocket).toHaveBeenCalledWith("ws://127.0.0.1:1337");
+    });
+
+    it("should render view  on onmessage callback", () => {
+      spyOn(containerMonitorComponent, "render");
+      containerMonitorComponent.initSensorWebSocket();
+      socket.onmessage({ data: "{}" });
+      expect(containerMonitorComponent.render).toHaveBeenCalled();
+    });
   });
 
   it("render() should render view", () => {
