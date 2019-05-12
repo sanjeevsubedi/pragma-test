@@ -46,6 +46,12 @@ describe("Container Monitor Component", function() {
     });
   });
 
+  it("connectedCallback() should trigger initiation of web socket", () => {
+    spyOn(containerMonitorComponent, "initSensorWebSocket");
+    containerMonitorComponent.connectedCallback();
+    expect(containerMonitorComponent.initSensorWebSocket).toHaveBeenCalled();
+  });
+
   it("render() should render view", () => {
     const realTimeData = {
       pilsner: 5,
