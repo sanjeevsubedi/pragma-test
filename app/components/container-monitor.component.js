@@ -52,6 +52,11 @@ class ContainerMonitorComponent extends HTMLElement {
       const realTimeTempInfo = JSON.parse(evt.data) || null;
       if (realTimeTempInfo) {
         this.render(realTimeTempInfo, this.shadowRoot);
+
+        // Notify other components regarding the new data arrival
+        window.dispatchEvent(
+          new CustomEvent("onMessage", { detail: new Date() })
+        );
       }
     };
 

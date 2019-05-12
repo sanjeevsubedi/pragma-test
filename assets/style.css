@@ -20,4 +20,9 @@ h2 {
 .container {
   padding: 20px;
   min-height: 400px;
+  clear: both;
+}
+
+.date-time {
+  float: right;
 }

@@ -16,6 +16,7 @@ describe("Container Monitor Component", function() {
     shadowDOM = createElem("div", null);
     shadowDOM.append(createElem("div", { id: "content" }));
 
+    spyOn(window, "dispatchEvent");
     spyOn(window, "WebSocket").and.returnValue(() => {
       return { onmessage: () => {} };
     });
@@ -43,6 +44,13 @@ describe("Container Monitor Component", function() {
       containerMonitorComponent.initSensorWebSocket();
       socket.onmessage({ data: "{}" });
       expect(containerMonitorComponent.render).toHaveBeenCalled();
+    });
+
+    it("should dispatch onmessage custom event", () => {
+      spyOn(containerMonitorComponent, "render");
+      containerMonitorComponent.initSensorWebSocket();
+      socket.onmessage({ data: "{}" });
+      expect(window.dispatchEvent).toHaveBeenCalled();
     });
 
     it("should show error on onerror callback", () => {
