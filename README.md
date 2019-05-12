@@ -15,6 +15,7 @@
 - Mock server mimics the connection with the sensors' (IoT devices) API. It only returns the
   static temperature data of beer containers for the time-being.
 - Frontend App uses Web Components API to create a component.
+- 'CustomEvent' is used to communicate among components.
 - Environment Config are isolated and will not be checked in the source repository (Twelve-Factor App principle) in the future. For the purpose of test, I have checked into the repo. Look for env.js and config.json.
 - Use of Shadow-DOM to isolate the component from the rest of the app.
 - Jasmine/Karma is used for unit testing in the frontend.
