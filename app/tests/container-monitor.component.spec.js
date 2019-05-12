@@ -44,6 +44,20 @@ describe("Container Monitor Component", function() {
       socket.onmessage({ data: "{}" });
       expect(containerMonitorComponent.render).toHaveBeenCalled();
     });
+
+    it("should show error on onerror callback", () => {
+      spyOn(containerMonitorComponent, "handleSockerError");
+      containerMonitorComponent.initSensorWebSocket();
+      socket.onerror({});
+      expect(containerMonitorComponent.handleSockerError).toHaveBeenCalled();
+    });
+
+    it("should show error on onclose callback", () => {
+      spyOn(containerMonitorComponent, "handleSockerError");
+      containerMonitorComponent.initSensorWebSocket();
+      socket.onclose({});
+      expect(containerMonitorComponent.handleSockerError).toHaveBeenCalled();
+    });
   });
 
   it("connectedCallback() should trigger initiation of web socket", () => {

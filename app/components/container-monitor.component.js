@@ -42,7 +42,7 @@ class ContainerMonitorComponent extends HTMLElement {
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
-    this.content = this.shadowRoot.querySelector("#content");
+    this.contentNode = this.shadowRoot.querySelector("#content");
   }
 
   initSensorWebSocket() {
@@ -54,11 +54,13 @@ class ContainerMonitorComponent extends HTMLElement {
         this.render(realTimeTempInfo, this.shadowRoot);
       }
     };
+
     websocket.onerror = evt => {
-      const error = document.createElement("div");
-      error.classList.add("error");
-      error.innerHTML = "Connection error: Please start your socket server";
-      this.content.append(error);
+      this.handleSockerError(this.contentNode);
+    };
+
+    websocket.onclose = evt => {
+      this.handleSockerError(this.contentNode);
     };
   }
 
@@ -72,8 +74,9 @@ class ContainerMonitorComponent extends HTMLElement {
     const shadowRoot = DOM;
     const containerService = new ContainerService();
     const containerMetaData = containerService.getContainerTempRange();
+    const wrapper = shadowRoot.querySelector("#content");
+    wrapper.innerHTML = "";
 
-    let html = "";
     for (const container in realTimeTempInfo) {
       const realTimeContainerTemp = realTimeTempInfo[container];
       const desiredContainer = containerMetaData[container];
@@ -87,10 +90,19 @@ class ContainerMonitorComponent extends HTMLElement {
             ? "true"
             : "false"
       });
-      html += `<beer-container data='${containerData}'></beer-container>`;
+      const beerContainer = document.createElement("beer-container");
+      beerContainer.setAttribute("data", containerData);
+      wrapper.appendChild(beerContainer);
     }
-    shadowRoot.querySelector("#content").innerHTML = html;
     return shadowRoot;
+  }
+
+  handleSockerError(contentNode) {
+    const error = document.createElement("div");
+    error.classList.add("error");
+    error.innerHTML = "Connection error: Please start your socket server";
+    contentNode.innerHTML = "";
+    contentNode.append(error);
   }
 }
 window.customElements.define("container-monitor", ContainerMonitorComponent);
