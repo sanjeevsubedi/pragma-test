@@ -28,7 +28,7 @@ describe("Container Monitor Component", function() {
     ).toBeTruthy();
   });
 
-  describe("initSensorWebSocket()", () => {
+  describe("Socket initialization function", () => {
     let socket;
     beforeEach(() => {
       socket = new window.WebSocket("fake addr");
@@ -68,25 +68,27 @@ describe("Container Monitor Component", function() {
     });
   });
 
-  it("connectedCallback() should trigger initiation of web socket", () => {
+  it("should trigger initialization of web socket after component is inserted in the DOM", () => {
     spyOn(containerMonitorComponent, "initSensorWebSocket");
     containerMonitorComponent.connectedCallback();
     expect(containerMonitorComponent.initSensorWebSocket).toHaveBeenCalled();
   });
 
-  it("render() should render view", () => {
-    const realTimeData = {
-      pilsner: 5,
-      ipa: 5,
-      lager: 5,
-      stout: 6,
-      wheat: 5,
-      paleAle: 5
-    };
-    const shadowRoot = containerMonitorComponent.render(
-      realTimeData,
-      shadowDOM
-    );
-    expect(shadowRoot.querySelector("#content").innerHTML).not.toBeNull();
+  describe("Render function", () => {
+    it("should render view", () => {
+      const realTimeData = {
+        pilsner: 5,
+        ipa: 5,
+        lager: 5,
+        stout: 6,
+        wheat: 5,
+        paleAle: 5
+      };
+      const shadowRoot = containerMonitorComponent.render(
+        realTimeData,
+        shadowDOM
+      );
+      expect(shadowRoot.querySelector("#content").innerHTML).not.toBeNull();
+    });
   });
 });
